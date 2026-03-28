@@ -6,9 +6,13 @@
 <title>Ankieta - Odbiór Fantów 🐱</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  /* === Paleta Fundacji Kot === */
+  /* Główny: #92ba12 | Jasny: #b8d94a | Bardzo jasny: #eef6cc | Ciemny: #6a8a0d */
+  /* Akcent: #e26a1c */
+
   body {
     font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, #fff0f5 0%, #fce4ec 100%);
+    background: linear-gradient(135deg, #f4fadf 0%, #eef6cc 100%);
     min-height: 100vh;
     padding: 20px;
     color: #333;
@@ -18,11 +22,11 @@
     margin: 0 auto;
     background: white;
     border-radius: 20px;
-    box-shadow: 0 8px 32px rgba(255,105,135,0.15);
+    box-shadow: 0 8px 32px rgba(146,186,18,0.18);
     overflow: hidden;
   }
   .header {
-    background: linear-gradient(135deg, #ff6b8a, #ff8fab);
+    background: linear-gradient(135deg, #6a8a0d, #92ba12);
     color: white;
     padding: 28px 32px;
     text-align: center;
@@ -32,38 +36,38 @@
   .paw { font-size: 1.8rem; margin-bottom: 8px; }
   .body { padding: 28px 32px; }
 
-  .loading { text-align: center; padding: 30px; color: #ff6b8a; }
-  .spinner { display: inline-block; width: 32px; height: 32px; border: 3px solid #ffb3c6; border-top-color: #ff6b8a; border-radius: 50%; animation: spin 0.8s linear infinite; margin-bottom: 10px; }
+  .loading { text-align: center; padding: 30px; color: #92ba12; }
+  .spinner { display: inline-block; width: 32px; height: 32px; border: 3px solid #c8e06a; border-top-color: #92ba12; border-radius: 50%; animation: spin 0.8s linear infinite; margin-bottom: 10px; }
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  .error-box { background: #fff3f3; border: 1.5px solid #ffb3b3; border-radius: 12px; padding: 16px; color: #c62828; text-align: center; margin-bottom: 20px; }
+  .error-box { background: #fff8f3; border: 1.5px solid #e26a1c; border-radius: 12px; padding: 16px; color: #b94d0e; text-align: center; margin-bottom: 20px; }
 
   .field { margin-bottom: 22px; }
   label { display: block; font-weight: 600; margin-bottom: 7px; color: #555; font-size: 0.92rem; }
   select, input[type=text], input[type=email], input[type=tel] {
     width: 100%; padding: 11px 14px;
-    border: 1.5px solid #e0e0e0; border-radius: 10px;
-    font-size: 0.95rem; transition: border-color 0.2s; background: #fafafa;
+    border: 1.5px solid #d4e89a; border-radius: 10px;
+    font-size: 0.95rem; transition: border-color 0.2s; background: #fafdf2;
   }
-  select:focus, input:focus { outline: none; border-color: #ff6b8a; background: white; }
+  select:focus, input:focus { outline: none; border-color: #92ba12; background: white; }
 
   .prizes-box {
-    background: #fff3f7; border: 1.5px solid #ffb3c6;
+    background: #f4fadf; border: 1.5px solid #b8d94a;
     border-radius: 12px; padding: 16px 20px; margin-bottom: 22px; display: none;
   }
-  .prizes-box h3 { color: #c2185b; margin-bottom: 12px; font-size: 0.95rem; }
-  .prize-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #ffe0eb; font-size: 0.9rem; }
+  .prizes-box h3 { color: #6a8a0d; margin-bottom: 12px; font-size: 0.95rem; }
+  .prize-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #d4e89a; font-size: 0.9rem; }
   .prize-row:last-of-type { border-bottom: none; }
-  .prize-price { color: #e91e63; font-weight: 600; }
-  .prize-total { display: flex; justify-content: space-between; margin-top: 10px; padding-top: 10px; border-top: 2px solid #ffb3c6; font-weight: 700; font-size: 0.95rem; color: #ad1457; }
+  .prize-price { color: #e26a1c; font-weight: 600; }
+  .prize-total { display: flex; justify-content: space-between; margin-top: 10px; padding-top: 10px; border-top: 2px solid #b8d94a; font-weight: 700; font-size: 0.95rem; color: #6a8a0d; }
 
   .delivery-options { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 22px; }
   .delivery-card {
-    flex: 1; min-width: 200px; border: 2px solid #e0e0e0;
+    flex: 1; min-width: 200px; border: 2px solid #d4e89a;
     border-radius: 12px; padding: 16px; cursor: pointer; transition: all 0.2s; text-align: center;
   }
-  .delivery-card:hover { border-color: #ff6b8a; background: #fff8fb; }
-  .delivery-card.selected { border-color: #ff6b8a; background: #fff0f5; }
+  .delivery-card:hover { border-color: #92ba12; background: #f4fadf; }
+  .delivery-card.selected { border-color: #92ba12; background: #eef6cc; }
   .delivery-card .icon { font-size: 1.8rem; margin-bottom: 6px; }
   .delivery-card .title { font-weight: 700; color: #333; font-size: 0.95rem; }
   .delivery-card .subtitle { color: #888; font-size: 0.8rem; margin-top: 3px; }
@@ -72,30 +76,112 @@
   .sub-options.visible { display: block; }
   .radio-label {
     display: flex; align-items: flex-start; gap: 10px;
-    padding: 10px 14px; border: 1.5px solid #e0e0e0;
+    padding: 10px 14px; border: 1.5px solid #d4e89a;
     border-radius: 10px; margin-bottom: 8px;
     cursor: pointer; font-size: 0.9rem; transition: all 0.2s;
   }
-  .radio-label:hover { border-color: #ff6b8a; background: #fff8fb; }
-  .radio-label input { margin-top: 2px; accent-color: #ff6b8a; }
+  .radio-label:hover { border-color: #92ba12; background: #f4fadf; }
+  .radio-label input { margin-top: 2px; accent-color: #92ba12; }
   .other-input { margin-top: 8px; display: none; }
 
   .inpost-fields { display: none; }
   .inpost-fields.visible { display: block; }
-  .inpost-note { background: #e3f2fd; border-radius: 8px; padding: 10px 14px; font-size: 0.85rem; color: #1565c0; margin-bottom: 16px; }
+  .inpost-note { background: #fff4ec; border-radius: 8px; padding: 10px 14px; font-size: 0.85rem; color: #b94d0e; margin-bottom: 16px; border-left: 3px solid #e26a1c; }
 
   .submit-btn {
-    width: 100%; background: linear-gradient(135deg, #ff6b8a, #ff8fab);
+    width: 100%; background: linear-gradient(135deg, #6a8a0d, #92ba12);
     color: white; border: none; border-radius: 12px;
     padding: 14px; font-size: 1rem; font-weight: 700;
     cursor: pointer; transition: all 0.2s; margin-top: 8px;
   }
-  .submit-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(255,107,138,0.4); }
+  .submit-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(146,186,18,0.4); }
   .submit-btn:disabled { background: #ccc; cursor: not-allowed; transform: none; box-shadow: none; }
 
-  .success-msg { display: none; background: #e8f5e9; border: 1.5px solid #a5d6a7; border-radius: 12px; padding: 18px; text-align: center; color: #2e7d32; margin-top: 16px; }
+  .success-msg { display: none; background: #eef6cc; border: 1.5px solid #92ba12; border-radius: 12px; padding: 18px; text-align: center; color: #6a8a0d; margin-top: 16px; }
   .success-msg h3 { margin-bottom: 6px; }
-  .section-divider { border: none; border-top: 1.5px solid #f5f5f5; margin: 24px 0; }
+  .section-divider { border: none; border-top: 1.5px solid #d4e89a; margin: 24px 0; }
+
+  /* Donation box */
+  .donation-box {
+    margin-top: 20px;
+    background: linear-gradient(135deg, #f4fadf, #eef6cc);
+    border: 2px solid #92ba12;
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+  }
+  .donation-header { margin-bottom: 12px; }
+  .donation-icon { font-size: 2rem; display: block; margin-bottom: 6px; }
+  .donation-header h3 { color: #6a8a0d; font-size: 1.1rem; }
+  .donation-text { color: #555; font-size: 0.92rem; line-height: 1.6; margin-bottom: 18px; }
+  .donate-btn {
+    display: inline-block;
+    background: linear-gradient(135deg, #6a8a0d, #92ba12);
+    color: white;
+    text-decoration: none;
+    padding: 13px 32px;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 700;
+    transition: all 0.2s;
+    box-shadow: 0 4px 14px rgba(146,186,18,0.35);
+    margin-bottom: 24px;
+    display: block;
+    max-width: 280px;
+    margin: 0 auto 24px auto;
+  }
+  .donate-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(146,186,18,0.45); }
+
+  .confirmation-box {
+    background: white;
+    border-radius: 12px;
+    padding: 18px;
+    margin-top: 20px;
+    border: 1.5px solid #d4e89a;
+  }
+  .confirmation-text { color: #555; font-size: 0.88rem; line-height: 1.6; margin-bottom: 16px; }
+
+  .screen-example {
+    background: #f8f8f8;
+    border: 1.5px solid #ddd;
+    border-radius: 12px;
+    overflow: hidden;
+    max-width: 260px;
+    margin: 0 auto 16px auto;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+  }
+  .screen-header {
+    background: #92ba12;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 7px 12px;
+    text-align: center;
+    letter-spacing: 0.03em;
+  }
+  .screen-body { padding: 14px 16px; }
+  .screen-logo {
+    font-size: 1rem;
+    font-weight: 800;
+    color: #92ba12;
+    text-align: center;
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+  .screen-logo small { color: #555; font-weight: 600; font-size: 0.75rem; }
+  .screen-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.82rem;
+    padding: 5px 0;
+    border-bottom: 1px solid #eee;
+    color: #666;
+  }
+  .screen-row:last-child { border-bottom: none; }
+  .screen-val { font-weight: 700; color: #333; }
+
+  .sara-text { color: #6a8a0d; font-size: 0.88rem; line-height: 1.6; margin-top: 4px; }
 
   @media (max-width: 500px) {
     .body { padding: 20px 16px; }
@@ -108,7 +194,7 @@
   <div class="header">
     <div class="paw">🐱</div>
     <h1>Ankieta odbioru fantów</h1>
-    <p>Bazarek Charytatywny dla Fundacji KOT – dziękujemy za wsparcie! 💕</p>
+    <p>Bazarek Charytatywny dla Kotów – dziękujemy za wsparcie! 💕</p>
   </div>
 
   <div class="body">
@@ -168,7 +254,7 @@
           </div>
 
           <div class="inpost-fields" id="subInpost">
-            <div class="inpost-note">📦 Koszt wysyłki InPost: <strong>15 zł</strong> – należy doliczyć do kwoty fantów, kiedy będziesz wpłacać na zbiórke.</div>
+            <div class="inpost-note">📦 Koszt wysyłki InPost: <strong>15 zł</strong> – zostanie doliczona do kwoty fantów.</div>
             <div class="field">
               <label for="paczkomat">Numer paczkomatu</label>
               <input type="text" id="paczkomat" placeholder="np. WAW123M">
@@ -192,6 +278,37 @@
         <h3>🎉 Dziękujemy za wypełnienie ankiety!</h3>
         <p>Odpowiedź została zapisana. Niebawem skontaktujemy się w sprawie odbioru fantów. 💕</p>
       </div>
+
+      <div class="donation-box" id="donationBox" style="display:none">
+        <div class="donation-header">
+          <span class="donation-icon">🐾</span>
+          <h3>Jeszcze jeden krok – wpłać darowiznę!</h3>
+        </div>
+        <p class="donation-text">
+          Prosimy o wpłacenie kwoty za fanty bezpośrednio na naszą zbiórkę charytatywną.
+          Każda złotówka trafia do potrzebujących zwierząt! 🐱
+        </p>
+        <a href="https://www.ratujemyzwierzaki.pl/zatrzymajmy-kolejny-miot" target="_blank" class="donate-btn">
+          Wpłać teraz 💚
+        </a>
+
+        <div class="confirmation-box">
+          <p class="confirmation-text">
+            Po dokonaniu wpłaty prosimy o przesłanie <strong>potwierdzenia przelewu</strong> do Sary.
+            Możesz to zrobić wysyłając zrzut ekranu podobny do poniższego przykładu:
+          </p>
+          <div class="screen-example">
+            <div class="screen-header">Przykładowe potwierdzenie wpłaty</div>
+            <div class="screen-body">
+              <div class="screen-logo">ratuje<span style="color:#e26a1c">♥</span>my<br><small>zwierzaki<span style="color:#e26a1c">🐾</span>.pl</small></div>
+              <div class="screen-row"><span>Kwota:</span><span class="screen-val">50 zł</span></div>
+              <div class="screen-row"><span>Zbiórka:</span><span class="screen-val" style="font-size:0.78rem">Zatrzymajmy kolejny miot</span></div>
+              <div class="screen-row"><span>Status:</span><span class="screen-val" style="color:#92ba12">✅ Wpłacono</span></div>
+            </div>
+          </div>
+          <p class="sara-text">📩 Wyślij screenshot do <strong>Sary</strong> – najlepiej przez Messenger lub SMS. Dziękujemy! 💕</p>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -201,6 +318,7 @@
   // STAŁY ADRES SKRYPTU – nie wymaga konfiguracji
   // =====================================================
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbye0mO-2CeHREwNzEwmIR9q8_k1e0kk8z80Nwy_fhx5Jz6XfYBmWtDf7BDksfV-ma8jiQ/exec";
+  // Fundacja Kot – https://fundacjakot.github.io/ankieta/
 
   let wygraneRows = [];
   let nameKey = '', fantKey = '', priceKey = '';
@@ -330,6 +448,8 @@
       if (json.error) throw new Error(json.error);
       btn.style.display = 'none';
       document.getElementById('successMsg').style.display = 'block';
+      document.getElementById('donationBox').style.display = 'block';
+      document.getElementById('donationBox').scrollIntoView({behavior:'smooth', block:'start'});
     } catch(e) {
       alert('Błąd zapisu: ' + e.message);
       btn.disabled = false;
