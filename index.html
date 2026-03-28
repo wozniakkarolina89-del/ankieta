@@ -32,67 +32,24 @@
   .paw { font-size: 1.8rem; margin-bottom: 8px; }
   .body { padding: 28px 32px; }
 
-  /* URL config */
-  .config-section {
-    background: #fff8fb;
-    border: 2px dashed #ffb3c6;
-    border-radius: 12px;
-    padding: 16px 20px;
-    margin-bottom: 24px;
-  }
-  .config-section h3 { color: #c2185b; margin-bottom: 10px; font-size: 0.9rem; }
-  .config-row { display: flex; gap: 8px; }
-  .config-row input {
-    flex: 1;
-    padding: 9px 12px;
-    border: 1.5px solid #e0e0e0;
-    border-radius: 8px;
-    font-size: 0.82rem;
-    background: #fafafa;
-  }
-  .config-row input:focus { outline: none; border-color: #ff6b8a; }
-  .config-btn {
-    background: #ff6b8a;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    padding: 9px 16px;
-    font-size: 0.85rem;
-    cursor: pointer;
-    white-space: nowrap;
-  }
-  .config-btn:hover { background: #e05577; }
-  .config-status { font-size: 0.8rem; margin-top: 7px; color: #888; }
-  .ok { color: #2e7d32; font-weight: 600; }
-  .err { color: #c62828; }
-
-  /* Loading */
-  .loading { text-align: center; padding: 20px; color: #ff6b8a; display: none; }
-  .spinner { display: inline-block; width: 28px; height: 28px; border: 3px solid #ffb3c6; border-top-color: #ff6b8a; border-radius: 50%; animation: spin 0.8s linear infinite; margin-bottom: 8px; }
+  .loading { text-align: center; padding: 30px; color: #ff6b8a; }
+  .spinner { display: inline-block; width: 32px; height: 32px; border: 3px solid #ffb3c6; border-top-color: #ff6b8a; border-radius: 50%; animation: spin 0.8s linear infinite; margin-bottom: 10px; }
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* Form fields */
+  .error-box { background: #fff3f3; border: 1.5px solid #ffb3b3; border-radius: 12px; padding: 16px; color: #c62828; text-align: center; margin-bottom: 20px; }
+
   .field { margin-bottom: 22px; }
   label { display: block; font-weight: 600; margin-bottom: 7px; color: #555; font-size: 0.92rem; }
   select, input[type=text], input[type=email], input[type=tel] {
-    width: 100%;
-    padding: 11px 14px;
-    border: 1.5px solid #e0e0e0;
-    border-radius: 10px;
-    font-size: 0.95rem;
-    transition: border-color 0.2s;
-    background: #fafafa;
+    width: 100%; padding: 11px 14px;
+    border: 1.5px solid #e0e0e0; border-radius: 10px;
+    font-size: 0.95rem; transition: border-color 0.2s; background: #fafafa;
   }
   select:focus, input:focus { outline: none; border-color: #ff6b8a; background: white; }
 
-  /* Prizes box */
   .prizes-box {
-    background: #fff3f7;
-    border: 1.5px solid #ffb3c6;
-    border-radius: 12px;
-    padding: 16px 20px;
-    margin-bottom: 22px;
-    display: none;
+    background: #fff3f7; border: 1.5px solid #ffb3c6;
+    border-radius: 12px; padding: 16px 20px; margin-bottom: 22px; display: none;
   }
   .prizes-box h3 { color: #c2185b; margin-bottom: 12px; font-size: 0.95rem; }
   .prize-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #ffe0eb; font-size: 0.9rem; }
@@ -100,13 +57,10 @@
   .prize-price { color: #e91e63; font-weight: 600; }
   .prize-total { display: flex; justify-content: space-between; margin-top: 10px; padding-top: 10px; border-top: 2px solid #ffb3c6; font-weight: 700; font-size: 0.95rem; color: #ad1457; }
 
-  /* Delivery */
   .delivery-options { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 22px; }
   .delivery-card {
-    flex: 1; min-width: 200px;
-    border: 2px solid #e0e0e0;
-    border-radius: 12px; padding: 16px;
-    cursor: pointer; transition: all 0.2s; text-align: center;
+    flex: 1; min-width: 200px; border: 2px solid #e0e0e0;
+    border-radius: 12px; padding: 16px; cursor: pointer; transition: all 0.2s; text-align: center;
   }
   .delivery-card:hover { border-color: #ff6b8a; background: #fff8fb; }
   .delivery-card.selected { border-color: #ff6b8a; background: #fff0f5; }
@@ -140,6 +94,7 @@
   .submit-btn:disabled { background: #ccc; cursor: not-allowed; transform: none; box-shadow: none; }
 
   .success-msg { display: none; background: #e8f5e9; border: 1.5px solid #a5d6a7; border-radius: 12px; padding: 18px; text-align: center; color: #2e7d32; margin-top: 16px; }
+  .success-msg h3 { margin-bottom: 6px; }
   .section-divider { border: none; border-top: 1.5px solid #f5f5f5; margin: 24px 0; }
 
   @media (max-width: 500px) {
@@ -153,136 +108,121 @@
   <div class="header">
     <div class="paw">🐱</div>
     <h1>Ankieta odbioru fantów</h1>
-    <p>Bazarek Charytatywny dla Kotów – dziękujemy za wsparcie! 💕</p>
+    <p>Bazarek Charytatywny dla Fundacji KOT – dziękujemy za wsparcie! 💕</p>
   </div>
 
   <div class="body">
-    <!-- URL Config -->
-    <div class="config-section">
-      <h3>⚙️ Połączenie z Google Sheets (Apps Script URL)</h3>
-      <div class="config-row">
-        <input type="text" id="scriptUrl" placeholder="Wklej tu URL wdrożonego skryptu (https://script.google.com/macros/s/...)">
-        <button class="config-btn" onclick="connectScript()">Połącz</button>
-      </div>
-      <div id="configStatus" class="config-status">Nie połączono z Google Sheets</div>
-    </div>
-
-    <!-- Loading -->
     <div class="loading" id="loading">
       <div class="spinner"></div>
-      <div>Wczytywanie danych z Google Sheets…</div>
+      <div>Wczytywanie danych…</div>
     </div>
 
-    <!-- Person select -->
-    <div class="field">
-      <label for="personSelect">👤 Wybierz swoje imię i nazwisko</label>
-      <select id="personSelect" disabled onchange="onPersonSelect()">
-        <option value="">— najpierw połącz się z Google Sheets —</option>
-      </select>
-    </div>
+    <div class="error-box" id="errorBox" style="display:none"></div>
 
-    <!-- Prizes -->
-    <div class="prizes-box" id="prizesBox">
-      <h3>🎁 Twoje wygrane fanty</h3>
-      <div id="prizesList"></div>
-      <div class="prize-total">
-        <span>Łączna kwota do zapłaty:</span>
-        <span id="prizeTotal">0 zł</span>
-      </div>
-    </div>
-
-    <hr class="section-divider">
-
-    <!-- Delivery -->
-    <div id="deliverySection" style="display:none">
+    <div id="formContent" style="display:none">
       <div class="field">
-        <label>🚚 Wybierz sposób odbioru</label>
-        <div class="delivery-options">
-          <div class="delivery-card" id="cardOsob" onclick="selectDelivery('osobisty')">
-            <div class="icon">🏠</div>
-            <div class="title">Odbiór osobisty</div>
-            <div class="subtitle">Odbierz w wybranym miejscu</div>
-          </div>
-          <div class="delivery-card" id="cardInpost" onclick="selectDelivery('inpost')">
-            <div class="icon">📦</div>
-            <div class="title">Wysyłka InPost</div>
-            <div class="subtitle">+15 zł koszt wysyłki</div>
-          </div>
-        </div>
+        <label for="personSelect">👤 Wybierz swoje imię i nazwisko</label>
+        <select id="personSelect" onchange="onPersonSelect()">
+          <option value="">— wybierz swoje imię i nazwisko —</option>
+        </select>
+      </div>
 
-        <div class="sub-options" id="subOsobisty">
-          <label>📍 Wybierz miejsce odbioru</label>
-          <label class="radio-label"><input type="radio" name="miejsce" value="Toruń - Planeta Zoo przy Żwirki i Wigury"> Toruń – Planeta Zoo przy Żwirki i Wigury</label>
-          <label class="radio-label"><input type="radio" name="miejsce" value="Toruń - Planeta Zoo przy Kaszowniku"> Toruń – Planeta Zoo przy Kaszowniku</label>
-          <label class="radio-label"><input type="radio" name="miejsce" value="Włocławek - odbiór w kociarni / u Dominiki Płuzy"> Włocławek – odbiór w kociarni / u Dominiki Płuzy</label>
-          <label class="radio-label">
-            <input type="radio" name="miejsce" value="inny" onchange="toggleOther(this)"> Inny umówiony sposób odbioru
-          </label>
-          <div class="other-input" id="otherInput">
-            <input type="text" id="otherText" placeholder="Opisz umówiony sposób odbioru...">
-          </div>
+      <div class="prizes-box" id="prizesBox">
+        <h3>🎁 Twoje wygrane fanty</h3>
+        <div id="prizesList"></div>
+        <div class="prize-total">
+          <span>Łączna kwota do zapłaty:</span>
+          <span id="prizeTotal">0 zł</span>
         </div>
+      </div>
 
-        <div class="inpost-fields" id="subInpost">
-          <div class="inpost-note">📦 Koszt wysyłki InPost: <strong>15 zł</strong> – zostanie doliczona do kwoty fantów.</div>
-          <div class="field">
-            <label for="paczkomat">Numer paczkomatu</label>
-            <input type="text" id="paczkomat" placeholder="np. WAW123M">
+      <hr class="section-divider">
+
+      <div id="deliverySection" style="display:none">
+        <div class="field">
+          <label>🚚 Wybierz sposób odbioru</label>
+          <div class="delivery-options">
+            <div class="delivery-card" id="cardOsob" onclick="selectDelivery('osobisty')">
+              <div class="icon">🏠</div>
+              <div class="title">Odbiór osobisty</div>
+              <div class="subtitle">Odbierz w wybranym miejscu</div>
+            </div>
+            <div class="delivery-card" id="cardInpost" onclick="selectDelivery('inpost')">
+              <div class="icon">📦</div>
+              <div class="title">Wysyłka InPost</div>
+              <div class="subtitle">+15 zł koszt wysyłki</div>
+            </div>
           </div>
-          <div class="field">
-            <label for="email">Adres e-mail</label>
-            <input type="email" id="email" placeholder="twoj@email.pl">
+
+          <div class="sub-options" id="subOsobisty">
+            <label>📍 Wybierz miejsce odbioru</label>
+            <label class="radio-label"><input type="radio" name="miejsce" value="Toruń - Planeta Zoo przy Żwirki i Wigury"> Toruń – Planeta Zoo przy Żwirki i Wigury</label>
+            <label class="radio-label"><input type="radio" name="miejsce" value="Toruń - Planeta Zoo przy Kaszowniku"> Toruń – Planeta Zoo przy Kaszowniku</label>
+            <label class="radio-label"><input type="radio" name="miejsce" value="Włocławek - odbiór w kociarni / u Dominiki Płuzy"> Włocławek – odbiór w kociarni / u Dominiki Płuzy</label>
+            <label class="radio-label">
+              <input type="radio" name="miejsce" value="inny" onchange="toggleOther(this)"> Inny umówiony sposób odbioru
+            </label>
+            <div class="other-input" id="otherInput">
+              <input type="text" id="otherText" placeholder="Opisz umówiony sposób odbioru...">
+            </div>
           </div>
-          <div class="field">
-            <label for="telefon">Numer telefonu</label>
-            <input type="tel" id="telefon" placeholder="np. 600 123 456">
+
+          <div class="inpost-fields" id="subInpost">
+            <div class="inpost-note">📦 Koszt wysyłki InPost: <strong>15 zł</strong> – należy doliczyć do kwoty fantów, kiedy będziesz wpłacać na zbiórke.</div>
+            <div class="field">
+              <label for="paczkomat">Numer paczkomatu</label>
+              <input type="text" id="paczkomat" placeholder="np. WAW123M">
+            </div>
+            <div class="field">
+              <label for="email">Adres e-mail</label>
+              <input type="email" id="email" placeholder="twoj@email.pl">
+            </div>
+            <div class="field">
+              <label for="telefon">Numer telefonu</label>
+              <input type="tel" id="telefon" placeholder="np. 600 123 456">
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <button class="submit-btn" id="submitBtn" onclick="submitForm()" disabled>
-      Wyślij ankietę 🐾
-    </button>
-    <div class="success-msg" id="successMsg">
-      <h3>🎉 Dziękujemy za wypełnienie ankiety!</h3>
-      <p>Odpowiedź została zapisana w Google Sheets. Niebawem skontaktujemy się w sprawie odbioru fantów. 💕</p>
+      <button class="submit-btn" id="submitBtn" onclick="submitForm()" disabled>
+        Wyślij ankietę 🐾
+      </button>
+      <div class="success-msg" id="successMsg">
+        <h3>🎉 Dziękujemy za wypełnienie ankiety!</h3>
+        <p>Odpowiedź została zapisana. Niebawem skontaktujemy się w sprawie odbioru fantów. 💕</p>
+      </div>
     </div>
   </div>
 </div>
 
 <script>
+  // =====================================================
+  // STAŁY ADRES SKRYPTU – nie wymaga konfiguracji
+  // =====================================================
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbye0mO-2CeHREwNzEwmIR9q8_k1e0kk8z80Nwy_fhx5Jz6XfYBmWtDf7BDksfV-ma8jiQ/exec";
+
   let wygraneRows = [];
   let nameKey = '', fantKey = '', priceKey = '';
   let currentDelivery = null;
-  let scriptUrl = '';
+
+  // Auto-connect on load
+  window.addEventListener('load', connectScript);
 
   async function connectScript() {
-    const url = document.getElementById('scriptUrl').value.trim();
-    if (!url.startsWith('https://script.google.com')) {
-      setStatus('err', '❌ Nieprawidłowy URL – musi zaczynać się od https://script.google.com');
-      return;
-    }
-    scriptUrl = url;
-    setStatus('', '⏳ Łączenie z Google Sheets…');
-    document.getElementById('loading').style.display = 'block';
     try {
-      const res = await fetch(scriptUrl + '?action=getWygrane', {redirect: 'follow'});
+      const res = await fetch(SCRIPT_URL + '?action=getWygrane', { redirect: 'follow' });
       const json = await res.json();
       if (json.error) throw new Error(json.error);
       loadPersons(json.headers, json.rows);
-      setStatus('ok', '✅ Połączono z Google Sheets – dane wczytane pomyślnie');
-    } catch (e) {
-      setStatus('err', '❌ Błąd połączenia: ' + e.message);
-    } finally {
       document.getElementById('loading').style.display = 'none';
+      document.getElementById('formContent').style.display = 'block';
+    } catch(e) {
+      document.getElementById('loading').style.display = 'none';
+      const eb = document.getElementById('errorBox');
+      eb.style.display = 'block';
+      eb.textContent = '❌ Błąd wczytywania danych: ' + e.message + '. Odśwież stronę i spróbuj ponownie.';
     }
-  }
-
-  function setStatus(cls, msg) {
-    const el = document.getElementById('configStatus');
-    el.className = 'config-status ' + cls;
-    el.textContent = msg;
   }
 
   function loadPersons(headers, rows) {
@@ -293,13 +233,11 @@
 
     const names = [...new Set(rows.map(r => String(r[nameKey]).trim()).filter(Boolean))].sort();
     const sel = document.getElementById('personSelect');
-    sel.innerHTML = '<option value="">— wybierz swoje imię i nazwisko —</option>';
     names.forEach(n => {
       const o = document.createElement('option');
       o.value = o.textContent = n;
       sel.appendChild(o);
     });
-    sel.disabled = false;
   }
 
   function onPersonSelect() {
@@ -373,18 +311,18 @@
     btn.textContent = '⏳ Zapisywanie…';
 
     try {
-      const res = await fetch(scriptUrl, {
+      const res = await fetch(SCRIPT_URL, {
         method: 'POST',
         body: JSON.stringify({
           action: 'saveOdpowiedz',
           data: {
-            timestamp:       new Date().toLocaleString('pl-PL'),
-            imie:            name,
-            fanty:           fanty,
-            kwotaFantow:     total.toFixed(2),
-            sposobOdbioru:   currentDelivery === 'osobisty' ? 'Odbiór osobisty' : 'InPost (+15 zł)',
+            timestamp:        new Date().toLocaleString('pl-PL'),
+            imie:             name,
+            fanty:            fanty,
+            kwotaFantow:      total.toFixed(2),
+            sposobOdbioru:    currentDelivery === 'osobisty' ? 'Odbiór osobisty' : 'InPost (+15 zł)',
             szczegolyOdbioru: deliveryDetail,
-            lacznaKwota:     totalWithShipping.toFixed(2)
+            lacznaKwota:      totalWithShipping.toFixed(2)
           }
         })
       });
