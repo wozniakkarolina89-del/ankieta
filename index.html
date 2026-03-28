@@ -295,18 +295,8 @@
         <div class="confirmation-box">
           <p class="confirmation-text">
             Po dokonaniu wpłaty prosimy o przesłanie <strong>potwierdzenia przelewu</strong> do Sary.
-            Możesz to zrobić wysyłając zrzut ekranu podobny do poniższego przykładu:
           </p>
-          <div class="screen-example">
-            <div class="screen-header">Przykładowe potwierdzenie wpłaty</div>
-            <div class="screen-body">
-              <div class="screen-logo">ratuje<span style="color:#e26a1c">♥</span>my<br><small>zwierzaki<span style="color:#e26a1c">🐾</span>.pl</small></div>
-              <div class="screen-row"><span>Kwota:</span><span class="screen-val">50 zł</span></div>
-              <div class="screen-row"><span>Zbiórka:</span><span class="screen-val" style="font-size:0.78rem">Zatrzymajmy kolejny miot</span></div>
-              <div class="screen-row"><span>Status:</span><span class="screen-val" style="color:#92ba12">✅ Wpłacono</span></div>
-            </div>
-          </div>
-          <p class="sara-text">📩 Wyślij screenshot do <strong>Sary</strong> – najlepiej przez Messenger lub SMS. Dziękujemy! 💕</p>
+          <p class="sara-text">📩 Po dokonaniu wpłaty prosimy o przesłanie potwierdzenia przelewu do <strong>Sary</strong> – najlepiej przez Messenger. Dziękujemy! 💕</p>
         </div>
       </div>
     </div>
@@ -436,11 +426,11 @@
           data: {
             timestamp:        new Date().toLocaleString('pl-PL'),
             imie:             name,
-            fanty:            fanty,
-            kwotaFantow:      total.toFixed(2),
             sposobOdbioru:    currentDelivery === 'osobisty' ? 'Odbiór osobisty' : 'InPost (+15 zł)',
             szczegolyOdbioru: deliveryDetail,
-            lacznaKwota:      totalWithShipping.toFixed(2)
+            tel:              currentDelivery === 'inpost' ? document.getElementById('telefon').value.trim() : '',
+            mail:             currentDelivery === 'inpost' ? document.getElementById('email').value.trim() : '',
+            paczkomat:        currentDelivery === 'inpost' ? document.getElementById('paczkomat').value.trim() : ''
           }
         })
       });
