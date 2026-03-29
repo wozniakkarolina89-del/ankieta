@@ -99,6 +99,19 @@
 
   .success-msg { display: none; background: #eef6cc; border: 1.5px solid #92ba12; border-radius: 12px; padding: 18px; text-align: center; color: #6a8a0d; margin-top: 16px; }
   .success-msg h3 { margin-bottom: 6px; }
+  .search-wrap { position: relative; }
+  .search-result {
+    position: absolute; top: 100%; left: 0; right: 0; z-index: 100;
+    background: white; border: 1.5px solid #92ba12; border-top: none;
+    border-radius: 0 0 10px 10px; max-height: 200px; overflow-y: auto;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+  .search-item {
+    padding: 10px 14px; cursor: pointer; font-size: 0.92rem;
+    border-bottom: 1px solid #f0f0f0; transition: background 0.15s;
+  }
+  .search-item:hover { background: #f4fadf; color: #6a8a0d; font-weight: 600; }
+  .search-none { padding: 10px 14px; color: #e26a1c; font-size: 0.88rem; }
   .section-divider { border: none; border-top: 1.5px solid #d4e89a; margin: 24px 0; }
 
   .donation-box {
@@ -208,10 +221,12 @@
 
     <div id="formContent" style="display:none">
       <div class="field">
-        <label for="personSelect">👤 Wybierz swoje imię i nazwisko</label>
-        <select id="personSelect" onchange="onPersonSelect()">
-          <option value="">— wybierz swoje imię i nazwisko —</option>
-        </select>
+        <label for="personSearch">👤 Wpisz swoje imię i nazwisko</label>
+        <div class="search-wrap">
+          <input type="text" id="personSearch" placeholder="Zacznij pisać swoje nazwisko…" oninput="onSearchInput()" autocomplete="off">
+          <div class="search-result" id="searchResult"></div>
+        </div>
+        <div class="search-hint">Wpisz minimum 2 litery, a system znajdzie Twoje dane.</div>
       </div>
 
       <div class="prizes-box" id="prizesBox">
@@ -307,6 +322,7 @@
   let wygraneRows = [];
   let nameKey = '', fantKey = '', priceKey = '';
   let currentDelivery = null;
+  let selectedName = '';
 
   // Auto-connect on load
   window.addEventListener('load', connectScript);
@@ -332,36 +348,56 @@
     nameKey  = headers.find(h => /imię|imie|nazwisko|name|osoba|uczestnik/i.test(h)) || headers[0];
     fantKey  = headers.find(h => /fant|nagroda|przedmiot|item|towar/i.test(h))       || headers[1];
     priceKey = headers.find(h => /kwota|cena|wartość|koszt|price|amount|suma/i.test(h)) || headers[2];
-
-    const names = [...new Set(rows.map(r => String(r[nameKey]).trim()).filter(Boolean))].sort();
-    const sel = document.getElementById('personSelect');
-    names.forEach(n => {
-      const o = document.createElement('option');
-      o.value = o.textContent = n;
-      sel.appendChild(o);
-    });
+    // Nie ładujemy listy nazwisk do DOM – użytkownik wpisuje swoje
   }
 
-  function onPersonSelect() {
-    const name = document.getElementById('personSelect').value;
-    const box = document.getElementById('prizesBox');
-    const ds  = document.getElementById('deliverySection');
-    const btn = document.getElementById('submitBtn');
-    if (!name) { box.style.display='none'; ds.style.display='none'; btn.disabled=true; return; }
+  function onSearchInput() {
+    const query = document.getElementById('personSearch').value.trim();
+    document.getElementById('searchResult').innerHTML = '';
+    document.getElementById('prizesBox').style.display = 'none';
+    document.getElementById('deliverySection').style.display = 'none';
+    document.getElementById('submitBtn').disabled = true;
+    selectedName = '';
+    if (query.length < 2) return;
+    // Szukaj dopasowań (case-insensitive, bez ujawniania pełnej listy)
+    const matches = [...new Set(
+      wygraneRows
+        .map(r => String(r[nameKey]).trim())
+        .filter(n => n.toLowerCase().includes(query.toLowerCase()))
+    )];
+    const res = document.getElementById('searchResult');
+    if (matches.length === 0) {
+      res.innerHTML = '<div class="search-none">Nie znaleziono uczestnika. Sprawdź pisownię.</div>';
+    } else {
+      matches.slice(0, 5).forEach(n => {
+        const d = document.createElement('div');
+        d.className = 'search-item';
+        d.textContent = n;
+        d.onclick = () => selectPerson(n);
+        res.appendChild(d);
+      });
+    }
+  }
+
+  function selectPerson(name) {
+    selectedName = name;
+    document.getElementById('personSearch').value = name;
+    document.getElementById('searchResult').innerHTML = '';
 
     const rows = wygraneRows.filter(r => String(r[nameKey]).trim() === name);
     let html = '', total = 0;
     rows.forEach(r => {
-      const fant  = r[fantKey]  || '(brak nazwy)';
+      const fant  = document.createElement('span');
+      fant.textContent = r[fantKey] || '(brak nazwy)';
       const price = parseFloat(String(r[priceKey]).replace(',','.')) || 0;
       total += price;
-      html += `<div class="prize-row"><span>🎁 ${fant}</span><span class="prize-price">${price.toFixed(2)} zł</span></div>`;
+      html += `<div class="prize-row"><span>🎁 ${fant.textContent}</span><span class="prize-price">${price.toFixed(2)} zł</span></div>`;
     });
     document.getElementById('prizesList').innerHTML = html;
     document.getElementById('prizeTotal').textContent = total.toFixed(2) + ' zł';
-    box.style.display = 'block';
-    ds.style.display  = 'block';
-    btn.disabled = false;
+    document.getElementById('prizesBox').style.display = 'block';
+    document.getElementById('deliverySection').style.display = 'block';
+    document.getElementById('submitBtn').disabled = false;
   }
 
   function selectDelivery(type) {
@@ -382,8 +418,8 @@
   });
 
   async function submitForm() {
-    const name = document.getElementById('personSelect').value;
-    if (!name) { alert('Wybierz imię i nazwisko.'); return; }
+    const name = selectedName;
+    if (!name) { alert('Wybierz swoje imię i nazwisko z listy podpowiedzi.'); return; }
     if (!currentDelivery) { alert('Wybierz sposób odbioru.'); return; }
 
     let deliveryDetail = '';
