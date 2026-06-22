@@ -301,7 +301,7 @@
         <div class="inpost-note">📦 Wysyłka przez InPost wiąże się z dopłatą <strong>+15 zł</strong> do kwoty darowizny.</div>
         <div class="field">
           <label for="paczkomat" style="font-weight:600; color:#555; font-size:0.92rem; display:block; margin-bottom:7px;">Numer paczkomatu:</label>
-          <input type="text" id="paczkomat" class="inputs" maxlength="10" placeholder="np. WAW123M" autocomplete="off">
+          <input type="text" id="paczkomat" class="inputs" maxlength="15" placeholder="np. WAW123M" autocomplete="off">
         </div>
         <div class="field">
           <label for="email" style="font-weight:600; color:#555; font-size:0.92rem; display:block; margin-bottom:7px;">Adres e-mail:</label>
@@ -318,9 +318,7 @@
       <div class="rodo-box">
         <p style="margin-bottom:8px;"><strong>Administrator danych:</strong> Fundacja KOT Koty Otoczone Troską, Koniuchy 7a/4, 87-100 Toruń, KRS 0000230788, e-mail: <a href="mailto:kontakt@fundacjakot.pl" style="color:#6a8a0d;">kontakt@fundacjakot.pl</a></p>
         <p style="margin-bottom:8px;"><strong>Cel przetwarzania:</strong> realizacja odbioru fantów z bazarku charytatywnego (podstawa prawna: art. 6 ust. 1 lit. b RODO — wykonanie umowy).</p>
-        <p style="margin-bottom:8px;"><strong>Odbiorca danych:</strong> Google LLC (hosting arkuszy kalkulacyjnych).</p>
         <p style="margin-bottom:8px;"><strong>Okres przechowywania:</strong> do zakończenia realizacji odbioru fantów, nie dłużej niż 90 dni od daty bazarku.</p>
-        <p style="margin-bottom:8px;"><strong>Transfer danych:</strong> dane mogą być przekazywane do USA (serwery Google LLC) na podstawie EU-US Data Privacy Framework.</p>
         <p style="margin-bottom:8px;"><strong>Twoje prawa:</strong> dostęp do danych, sprostowanie, usunięcie, ograniczenie przetwarzania, przenoszenie danych oraz prawo do sprzeciwu. Przysługuje Ci również prawo wniesienia skargi do Prezesa Urzędu Ochrony Danych Osobowych (ul. Stawki 2, 00-193 Warszawa).</p>
         <p><strong>Podanie danych</strong> jest dobrowolne, ale niezbędne do odbioru fantów.</p>
       </div>
@@ -538,11 +536,8 @@
         if (txt.length > 200) return 'Opis może mieć max 200 znaków.';
       }
     } else {
-      var p = document.getElementById('paczkomat').value.trim();
       var e = document.getElementById('email').value.trim();
       var t = document.getElementById('telefon').value.trim();
-      if (!p) return 'Wpisz numer paczkomatu.';
-      if (!/^[A-Z]{3}\d{2,3}[A-Z]$/i.test(p)) return 'Nieprawidłowy format paczkomatu (np. WAW123M).';
       if (!e) return 'Wpisz adres email.';
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)) return 'Nieprawidłowy adres email.';
       if (!t) return 'Wpisz numer telefonu.';
