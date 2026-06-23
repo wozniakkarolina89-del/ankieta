@@ -268,7 +268,7 @@
         </div>
         <div class="delivery-card" id="cardInpost" onclick="selectDelivery('inpost')">
           <div class="icon">📦</div>
-          <div class="title">InPost Paczkomat</div>
+          <div class="title">InPost Paczkomat / PaczkoPunkt</div>
           <div class="subtitle">Wysyłka (+15 zł)</div>
         </div>
       </div>
@@ -277,11 +277,11 @@
         <p style="font-weight:600; color:#555; margin-bottom:10px; font-size:0.92rem;">Wybierz miejsce odbioru:</p>
         <label class="radio-label">
           <input type="radio" name="miejsce" value="torun_zwirki">
-          Toruń - sklep Planeta Zoo - Żwirki i Wigury
+          Toruń sklep Planeta Zoo - Żwirki i Wigury
         </label>
         <label class="radio-label">
           <input type="radio" name="miejsce" value="torun_kaszownik">
-          Toruń - sklep Planeta Zoo - Kaszownik
+          Toruń sklep Planeta Zoo - Kaszownik
         </label>
         <label class="radio-label">
           <input type="radio" name="miejsce" value="wloclawek">
@@ -300,8 +300,8 @@
       <div id="subInpost" class="sub-options">
         <div class="inpost-note">📦 Wysyłka przez InPost wiąże się z dopłatą <strong>+15 zł</strong> do kwoty darowizny.</div>
         <div class="field">
-          <label for="paczkomat" style="font-weight:600; color:#555; font-size:0.92rem; display:block; margin-bottom:7px;">Numer paczkomatu:</label>
-          <input type="text" id="paczkomat" class="inputs" maxlength="15" placeholder="np. WAW123M" autocomplete="off">
+          <label for="paczkomat" style="font-weight:600; color:#555; font-size:0.92rem; display:block; margin-bottom:7px;">Kod paczkomatu lub PaczkoPunktu:</label>
+          <input type="text" id="paczkomat" class="inputs" maxlength="20" placeholder="np. WAW123M lub POP-ZAG10" autocomplete="off">
         </div>
         <div class="field">
           <label for="email" style="font-weight:600; color:#555; font-size:0.92rem; display:block; margin-bottom:7px;">Adres e-mail:</label>
@@ -318,6 +318,7 @@
       <div class="rodo-box">
         <p style="margin-bottom:8px;"><strong>Administrator danych:</strong> Fundacja KOT Koty Otoczone Troską, Koniuchy 7a/4, 87-100 Toruń, KRS 0000230788, e-mail: <a href="mailto:kontakt@fundacjakot.pl" style="color:#6a8a0d;">kontakt@fundacjakot.pl</a></p>
         <p style="margin-bottom:8px;"><strong>Cel przetwarzania:</strong> realizacja odbioru fantów z bazarku charytatywnego (podstawa prawna: art. 6 ust. 1 lit. b RODO — wykonanie umowy).</p>
+        <p style="margin-bottom:8px;"><strong>Odbiorca danych:</strong> Google LLC (hosting arkuszy kalkulacyjnych).</p>
         <p style="margin-bottom:8px;"><strong>Okres przechowywania:</strong> do zakończenia realizacji odbioru fantów, nie dłużej niż 90 dni od daty bazarku.</p>
         <p style="margin-bottom:8px;"><strong>Twoje prawa:</strong> dostęp do danych, sprostowanie, usunięcie, ograniczenie przetwarzania, przenoszenie danych oraz prawo do sprzeciwu. Przysługuje Ci również prawo wniesienia skargi do Prezesa Urzędu Ochrony Danych Osobowych (ul. Stawki 2, 00-193 Warszawa).</p>
         <p><strong>Podanie danych</strong> jest dobrowolne, ale niezbędne do odbioru fantów.</p>
@@ -356,7 +357,7 @@
   // =====================================================
   // STAŁY ADRES SKRYPTU – nie wymaga konfiguracji
   // =====================================================
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyYqzclDylEDSPR1_cJOrs0coutaGZyHNb5yi0zn1Zo0Io6FD44mZ7FrkUsExG2wR5k/exec";
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbye0mO-2CeHREwNzEwmIR9q8_k1e0kk8z80Nwy_fhx5Jz6XfYBmWtDf7BDksfV-ma8jiQ/exec";
 
   // =====================================================
   // Stan aplikacji
@@ -536,8 +537,11 @@
         if (txt.length > 200) return 'Opis może mieć max 200 znaków.';
       }
     } else {
+      var p = document.getElementById('paczkomat').value.trim();
       var e = document.getElementById('email').value.trim();
       var t = document.getElementById('telefon').value.trim();
+      if (!p) return 'Wpisz numer paczkomatu.';
+      if (!/^(POP-[A-Z0-9-]{2,12}|[A-Z]{3}[A-Z0-9]{2,17})$/i.test(p)) return 'Nieprawidłowy format kodu punktu (np. WAW123M lub POP-ZAG10).';
       if (!e) return 'Wpisz adres email.';
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)) return 'Nieprawidłowy adres email.';
       if (!t) return 'Wpisz numer telefonu.';
